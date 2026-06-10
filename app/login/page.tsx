@@ -47,7 +47,7 @@ export default function LoginPage() {
             type="tel"
             required
             autoComplete="tel"
-            placeholder="(555) 123-4567"
+            placeholder="2039796229"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             className="mt-1 w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-pitch-500 focus:outline-none focus:ring-1 focus:ring-pitch-500"
