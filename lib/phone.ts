@@ -3,7 +3,7 @@
 // and accounts will be created with synthesized emails `${digits}@mcdpool.local` instead.
 // The UX stays phone-only either way.
 
-export const USE_PHONE_PROVIDER = true;
+export const USE_PHONE_PROVIDER = false;
 
 export function normalizePhone(input: string): string {
   const digits = input.replace(/\D/g, "");
