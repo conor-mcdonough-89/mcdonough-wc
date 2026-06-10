@@ -1,0 +1,732 @@
+{
+  "_note": "fifa_rank_PLACEHOLDER is an approximate ordering derived from model strength; REPLACE with the official pre-tournament FIFA ranking. tier/price/group/confederation/opponents are authoritative per rulebook v2.",
+  "tier_prices": {
+    "S": 43,
+    "A": 29,
+    "B": 17,
+    "C": 9,
+    "D": 4
+  },
+  "teams": [
+    {
+      "name": "Mexico",
+      "code": "MEX",
+      "flag": "🇲🇽",
+      "tier": "B",
+      "price": 17,
+      "group": "A",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 22,
+      "group_opponents": [
+        "CZE",
+        "KOR",
+        "RSA"
+      ]
+    },
+    {
+      "name": "South Korea",
+      "code": "KOR",
+      "flag": "🇰🇷",
+      "tier": "B",
+      "price": 17,
+      "group": "A",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 21,
+      "group_opponents": [
+        "CZE",
+        "MEX",
+        "RSA"
+      ]
+    },
+    {
+      "name": "Czechia",
+      "code": "CZE",
+      "flag": "🇨🇿",
+      "tier": "C",
+      "price": 9,
+      "group": "A",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 28,
+      "group_opponents": [
+        "KOR",
+        "MEX",
+        "RSA"
+      ]
+    },
+    {
+      "name": "South Africa",
+      "code": "RSA",
+      "flag": "🇿🇦",
+      "tier": "D",
+      "price": 4,
+      "group": "A",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 39,
+      "group_opponents": [
+        "CZE",
+        "KOR",
+        "MEX"
+      ]
+    },
+    {
+      "name": "Switzerland",
+      "code": "SUI",
+      "flag": "🇨🇭",
+      "tier": "B",
+      "price": 17,
+      "group": "B",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 17,
+      "group_opponents": [
+        "BIH",
+        "CAN",
+        "QAT"
+      ]
+    },
+    {
+      "name": "Canada",
+      "code": "CAN",
+      "flag": "🇨🇦",
+      "tier": "C",
+      "price": 9,
+      "group": "B",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 27,
+      "group_opponents": [
+        "BIH",
+        "QAT",
+        "SUI"
+      ]
+    },
+    {
+      "name": "Qatar",
+      "code": "QAT",
+      "flag": "🇶🇦",
+      "tier": "C",
+      "price": 9,
+      "group": "B",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 37,
+      "group_opponents": [
+        "BIH",
+        "CAN",
+        "SUI"
+      ]
+    },
+    {
+      "name": "Bosnia & Herzegovina",
+      "code": "BIH",
+      "flag": "🇧🇦",
+      "tier": "C",
+      "price": 9,
+      "group": "B",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 34,
+      "group_opponents": [
+        "CAN",
+        "QAT",
+        "SUI"
+      ]
+    },
+    {
+      "name": "Brazil",
+      "code": "BRA",
+      "flag": "🇧🇷",
+      "tier": "A",
+      "price": 29,
+      "group": "C",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 5,
+      "group_opponents": [
+        "HAI",
+        "MAR",
+        "SCO"
+      ]
+    },
+    {
+      "name": "Morocco",
+      "code": "MAR",
+      "flag": "🇲🇦",
+      "tier": "A",
+      "price": 29,
+      "group": "C",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 10,
+      "group_opponents": [
+        "BRA",
+        "HAI",
+        "SCO"
+      ]
+    },
+    {
+      "name": "Scotland",
+      "code": "SCO",
+      "flag": "🏴",
+      "tier": "C",
+      "price": 9,
+      "group": "C",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 32,
+      "group_opponents": [
+        "BRA",
+        "HAI",
+        "MAR"
+      ]
+    },
+    {
+      "name": "Haiti",
+      "code": "HAI",
+      "flag": "🇭🇹",
+      "tier": "D",
+      "price": 4,
+      "group": "C",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 47,
+      "group_opponents": [
+        "BRA",
+        "MAR",
+        "SCO"
+      ]
+    },
+    {
+      "name": "United States",
+      "code": "USA",
+      "flag": "🇺🇸",
+      "tier": "B",
+      "price": 17,
+      "group": "D",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 19,
+      "group_opponents": [
+        "AUS",
+        "PAR",
+        "TUR"
+      ]
+    },
+    {
+      "name": "Australia",
+      "code": "AUS",
+      "flag": "🇦🇺",
+      "tier": "B",
+      "price": 17,
+      "group": "D",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 24,
+      "group_opponents": [
+        "PAR",
+        "TUR",
+        "USA"
+      ]
+    },
+    {
+      "name": "Türkiye",
+      "code": "TUR",
+      "flag": "🇹🇷",
+      "tier": "C",
+      "price": 9,
+      "group": "D",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 26,
+      "group_opponents": [
+        "AUS",
+        "PAR",
+        "USA"
+      ]
+    },
+    {
+      "name": "Paraguay",
+      "code": "PAR",
+      "flag": "🇵🇾",
+      "tier": "D",
+      "price": 4,
+      "group": "D",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 36,
+      "group_opponents": [
+        "AUS",
+        "TUR",
+        "USA"
+      ]
+    },
+    {
+      "name": "Germany",
+      "code": "GER",
+      "flag": "🇩🇪",
+      "tier": "A",
+      "price": 29,
+      "group": "E",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 8,
+      "group_opponents": [
+        "CIV",
+        "CUW",
+        "ECU"
+      ]
+    },
+    {
+      "name": "Ecuador",
+      "code": "ECU",
+      "flag": "🇪🇨",
+      "tier": "B",
+      "price": 17,
+      "group": "E",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 16,
+      "group_opponents": [
+        "CIV",
+        "CUW",
+        "GER"
+      ]
+    },
+    {
+      "name": "Ivory Coast",
+      "code": "CIV",
+      "flag": "🇨🇮",
+      "tier": "C",
+      "price": 9,
+      "group": "E",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 31,
+      "group_opponents": [
+        "CUW",
+        "ECU",
+        "GER"
+      ]
+    },
+    {
+      "name": "Curaçao",
+      "code": "CUW",
+      "flag": "🇨🇼",
+      "tier": "D",
+      "price": 4,
+      "group": "E",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 48,
+      "group_opponents": [
+        "CIV",
+        "ECU",
+        "GER"
+      ]
+    },
+    {
+      "name": "Netherlands",
+      "code": "NED",
+      "flag": "🇳🇱",
+      "tier": "A",
+      "price": 29,
+      "group": "F",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 7,
+      "group_opponents": [
+        "JPN",
+        "SWE",
+        "TUN"
+      ]
+    },
+    {
+      "name": "Japan",
+      "code": "JPN",
+      "flag": "🇯🇵",
+      "tier": "B",
+      "price": 17,
+      "group": "F",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 14,
+      "group_opponents": [
+        "NED",
+        "SWE",
+        "TUN"
+      ]
+    },
+    {
+      "name": "Sweden",
+      "code": "SWE",
+      "flag": "🇸🇪",
+      "tier": "C",
+      "price": 9,
+      "group": "F",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 30,
+      "group_opponents": [
+        "JPN",
+        "NED",
+        "TUN"
+      ]
+    },
+    {
+      "name": "Tunisia",
+      "code": "TUN",
+      "flag": "🇹🇳",
+      "tier": "C",
+      "price": 9,
+      "group": "F",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 33,
+      "group_opponents": [
+        "JPN",
+        "NED",
+        "SWE"
+      ]
+    },
+    {
+      "name": "Belgium",
+      "code": "BEL",
+      "flag": "🇧🇪",
+      "tier": "A",
+      "price": 29,
+      "group": "G",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 11,
+      "group_opponents": [
+        "EGY",
+        "IRN",
+        "NZL"
+      ]
+    },
+    {
+      "name": "Iran",
+      "code": "IRN",
+      "flag": "🇮🇷",
+      "tier": "B",
+      "price": 17,
+      "group": "G",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 23,
+      "group_opponents": [
+        "BEL",
+        "EGY",
+        "NZL"
+      ]
+    },
+    {
+      "name": "Egypt",
+      "code": "EGY",
+      "flag": "🇪🇬",
+      "tier": "B",
+      "price": 17,
+      "group": "G",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 20,
+      "group_opponents": [
+        "BEL",
+        "IRN",
+        "NZL"
+      ]
+    },
+    {
+      "name": "New Zealand",
+      "code": "NZL",
+      "flag": "🇳🇿",
+      "tier": "D",
+      "price": 4,
+      "group": "G",
+      "confederation": "OFC",
+      "fifa_rank_PLACEHOLDER": 46,
+      "group_opponents": [
+        "BEL",
+        "EGY",
+        "IRN"
+      ]
+    },
+    {
+      "name": "Spain",
+      "code": "ESP",
+      "flag": "🇪🇸",
+      "tier": "S",
+      "price": 43,
+      "group": "H",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 2,
+      "group_opponents": [
+        "CPV",
+        "KSA",
+        "URU"
+      ]
+    },
+    {
+      "name": "Uruguay",
+      "code": "URU",
+      "flag": "🇺🇾",
+      "tier": "B",
+      "price": 17,
+      "group": "H",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 13,
+      "group_opponents": [
+        "CPV",
+        "ESP",
+        "KSA"
+      ]
+    },
+    {
+      "name": "Saudi Arabia",
+      "code": "KSA",
+      "flag": "🇸🇦",
+      "tier": "D",
+      "price": 4,
+      "group": "H",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 41,
+      "group_opponents": [
+        "CPV",
+        "ESP",
+        "URU"
+      ]
+    },
+    {
+      "name": "Cape Verde",
+      "code": "CPV",
+      "flag": "🇨🇻",
+      "tier": "D",
+      "price": 4,
+      "group": "H",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 45,
+      "group_opponents": [
+        "ESP",
+        "KSA",
+        "URU"
+      ]
+    },
+    {
+      "name": "France",
+      "code": "FRA",
+      "flag": "🇫🇷",
+      "tier": "S",
+      "price": 43,
+      "group": "I",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 3,
+      "group_opponents": [
+        "IRQ",
+        "NOR",
+        "SEN"
+      ]
+    },
+    {
+      "name": "Senegal",
+      "code": "SEN",
+      "flag": "🇸🇳",
+      "tier": "B",
+      "price": 17,
+      "group": "I",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 15,
+      "group_opponents": [
+        "FRA",
+        "IRQ",
+        "NOR"
+      ]
+    },
+    {
+      "name": "Norway",
+      "code": "NOR",
+      "flag": "🇳🇴",
+      "tier": "C",
+      "price": 9,
+      "group": "I",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 25,
+      "group_opponents": [
+        "FRA",
+        "IRQ",
+        "SEN"
+      ]
+    },
+    {
+      "name": "Iraq",
+      "code": "IRQ",
+      "flag": "🇮🇶",
+      "tier": "D",
+      "price": 4,
+      "group": "I",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 42,
+      "group_opponents": [
+        "FRA",
+        "NOR",
+        "SEN"
+      ]
+    },
+    {
+      "name": "Argentina",
+      "code": "ARG",
+      "flag": "🇦🇷",
+      "tier": "S",
+      "price": 43,
+      "group": "J",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 1,
+      "group_opponents": [
+        "ALG",
+        "AUT",
+        "JOR"
+      ]
+    },
+    {
+      "name": "Austria",
+      "code": "AUT",
+      "flag": "🇦🇹",
+      "tier": "B",
+      "price": 17,
+      "group": "J",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 18,
+      "group_opponents": [
+        "ALG",
+        "ARG",
+        "JOR"
+      ]
+    },
+    {
+      "name": "Algeria",
+      "code": "ALG",
+      "flag": "🇩🇿",
+      "tier": "C",
+      "price": 9,
+      "group": "J",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 29,
+      "group_opponents": [
+        "ARG",
+        "AUT",
+        "JOR"
+      ]
+    },
+    {
+      "name": "Jordan",
+      "code": "JOR",
+      "flag": "🇯🇴",
+      "tier": "D",
+      "price": 4,
+      "group": "J",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 43,
+      "group_opponents": [
+        "ALG",
+        "ARG",
+        "AUT"
+      ]
+    },
+    {
+      "name": "Portugal",
+      "code": "POR",
+      "flag": "🇵🇹",
+      "tier": "A",
+      "price": 29,
+      "group": "K",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 6,
+      "group_opponents": [
+        "COD",
+        "COL",
+        "UZB"
+      ]
+    },
+    {
+      "name": "Colombia",
+      "code": "COL",
+      "flag": "🇨🇴",
+      "tier": "A",
+      "price": 29,
+      "group": "K",
+      "confederation": "CONMEBOL",
+      "fifa_rank_PLACEHOLDER": 9,
+      "group_opponents": [
+        "COD",
+        "POR",
+        "UZB"
+      ]
+    },
+    {
+      "name": "DR Congo",
+      "code": "COD",
+      "flag": "🇨🇩",
+      "tier": "C",
+      "price": 9,
+      "group": "K",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 35,
+      "group_opponents": [
+        "COL",
+        "POR",
+        "UZB"
+      ]
+    },
+    {
+      "name": "Uzbekistan",
+      "code": "UZB",
+      "flag": "🇺🇿",
+      "tier": "D",
+      "price": 4,
+      "group": "K",
+      "confederation": "AFC",
+      "fifa_rank_PLACEHOLDER": 40,
+      "group_opponents": [
+        "COD",
+        "COL",
+        "POR"
+      ]
+    },
+    {
+      "name": "England",
+      "code": "ENG",
+      "flag": "🏴",
+      "tier": "S",
+      "price": 43,
+      "group": "L",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 4,
+      "group_opponents": [
+        "CRO",
+        "GHA",
+        "PAN"
+      ]
+    },
+    {
+      "name": "Croatia",
+      "code": "CRO",
+      "flag": "🇭🇷",
+      "tier": "A",
+      "price": 29,
+      "group": "L",
+      "confederation": "UEFA",
+      "fifa_rank_PLACEHOLDER": 12,
+      "group_opponents": [
+        "ENG",
+        "GHA",
+        "PAN"
+      ]
+    },
+    {
+      "name": "Panama",
+      "code": "PAN",
+      "flag": "🇵🇦",
+      "tier": "D",
+      "price": 4,
+      "group": "L",
+      "confederation": "CONCACAF",
+      "fifa_rank_PLACEHOLDER": 44,
+      "group_opponents": [
+        "CRO",
+        "ENG",
+        "GHA"
+      ]
+    },
+    {
+      "name": "Ghana",
+      "code": "GHA",
+      "flag": "🇬🇭",
+      "tier": "D",
+      "price": 4,
+      "group": "L",
+      "confederation": "CAF",
+      "fifa_rank_PLACEHOLDER": 38,
+      "group_opponents": [
+        "CRO",
+        "ENG",
+        "PAN"
+      ]
+    }
+  ]
+}
