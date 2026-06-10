@@ -35,6 +35,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <NavLink href="/draft">Draft</NavLink>
             <NavLink href="/scoring">Scoring</NavLink>
             <NavLink href="/leaderboard">Leaderboard</NavLink>
+            <NavLink href="/rules">Rules</NavLink>
             {profile.is_admin && <NavLink href="/admin">Admin</NavLink>}
             <SignOutButton />
           </nav>

@@ -17,4 +17,23 @@ html, body {
   .btn-secondary {
     @apply rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-50 disabled:opacity-50;
   }
+
+  .prose-pool { @apply mx-auto max-w-3xl; }
+  .prose-pool h1 { @apply mb-2 text-2xl font-semibold; }
+  .prose-pool .lead { @apply mb-6 text-base text-neutral-600; }
+  .prose-pool h4 { @apply mt-4 mb-1 text-sm font-semibold text-neutral-900; }
+  .prose-pool ul, .prose-pool ol { @apply ml-5 list-outside space-y-1; }
+  .prose-pool ul { @apply list-disc; }
+  .prose-pool ol { @apply list-decimal; }
+  .prose-pool ul.quick { @apply list-none ml-0 grid grid-cols-1 gap-1 sm:grid-cols-2; }
+  .prose-pool code { @apply rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs; }
+  .prose-pool .tier-table, .prose-pool .score-table {
+    @apply mt-2 w-full overflow-hidden rounded-md border border-neutral-200 text-sm;
+  }
+  .prose-pool .tier-table th, .prose-pool .score-table th {
+    @apply bg-neutral-50 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-neutral-500;
+  }
+  .prose-pool .tier-table td, .prose-pool .score-table td {
+    @apply border-t border-neutral-100 px-3 py-2 align-top;
+  }
 }
