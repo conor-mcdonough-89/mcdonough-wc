@@ -36,7 +36,8 @@ export default function LoginPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
       <div className="mb-8 text-center">
-        <div className="text-3xl">⚽️</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="McDonough crest" className="mx-auto h-10 w-10 object-contain" />
         <h1 className="mt-2 text-2xl font-semibold">McDonough World Cup Pool</h1>
         <p className="mt-1 text-sm text-neutral-600">Sign in with your phone and password.</p>
       </div>

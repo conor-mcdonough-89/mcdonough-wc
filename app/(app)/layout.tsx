@@ -26,7 +26,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="border-b border-neutral-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center gap-2 font-semibold">
-            <span className="text-xl">⚽️</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="McDonough crest" className="h-6 w-6 object-contain" />
             <span className="hidden sm:inline">McDonough World Cup Pool</span>
             <span className="sm:hidden">McD WC Pool</span>
           </Link>

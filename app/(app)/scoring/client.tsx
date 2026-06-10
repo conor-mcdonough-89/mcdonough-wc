@@ -2,7 +2,6 @@
 import { useMemo, useState } from "react";
 import type { Match, Team, Stage } from "@/lib/types";
 
-const STAGE_ORDER: Stage[] = ["group", "R32", "R16", "QF", "SF", "3P", "F"];
 const STAGE_LABEL: Record<Stage, string> = {
   group: "Group Stage",
   R32: "Round of 32",
@@ -13,6 +12,10 @@ const STAGE_LABEL: Record<Stage, string> = {
   F: "Final",
 };
 
+const STAGE_RANK: Record<Stage, number> = {
+  group: 0, R32: 1, R16: 2, QF: 3, SF: 4, "3P": 5, F: 6,
+};
+
 interface Props {
   matches: Match[];
   teams: Team[];
@@ -21,24 +24,50 @@ interface Props {
   myTotal: number;
 }
 
+function dayKey(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function formatDayLabel(key: string): string {
+  const [y, m, d] = key.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  return date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+}
+
+function formatTime(iso: string): string {
+  return new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+
 export default function ScoringClient({ matches, teams, myTeamIds, pointsByMatch, myTotal }: Props) {
   const [myOnly, setMyOnly] = useState(false);
   const teamById = useMemo(() => new Map(teams.map((t) => [t.id, t])), [teams]);
   const myTeamSet = useMemo(() => new Set(myTeamIds), [myTeamIds]);
 
-  const grouped = useMemo(() => {
-    const map = new Map<Stage, Match[]>();
-    for (const s of STAGE_ORDER) map.set(s, []);
-    for (const m of matches) map.get(m.stage)!.push(m);
-    for (const s of STAGE_ORDER) {
-      map.get(s)!.sort((a, b) => {
-        if (a.kickoff && b.kickoff) return a.kickoff.localeCompare(b.kickoff);
-        if (a.kickoff) return -1;
-        if (b.kickoff) return 1;
-        return (a.slot ?? "").localeCompare(b.slot ?? "");
-      });
+  // Split into scheduled (have a kickoff) and unscheduled. Scheduled go in date-keyed
+  // buckets sorted ascending; unscheduled fall back to stage-grouped at the bottom.
+  const { byDay, dayKeys, unscheduledByStage } = useMemo(() => {
+    const scheduled = matches.filter((m) => !!m.kickoff);
+    const unscheduled = matches.filter((m) => !m.kickoff);
+
+    scheduled.sort((a, b) => a.kickoff!.localeCompare(b.kickoff!));
+    const byDay = new Map<string, Match[]>();
+    for (const m of scheduled) {
+      const k = dayKey(m.kickoff!);
+      if (!byDay.has(k)) byDay.set(k, []);
+      byDay.get(k)!.push(m);
     }
-    return map;
+    const dayKeys = Array.from(byDay.keys()).sort();
+
+    const unscheduledByStage = new Map<Stage, Match[]>();
+    for (const m of unscheduled) {
+      if (!unscheduledByStage.has(m.stage)) unscheduledByStage.set(m.stage, []);
+      unscheduledByStage.get(m.stage)!.push(m);
+    }
+    for (const list of unscheduledByStage.values()) {
+      list.sort((a, b) => (a.slot ?? "").localeCompare(b.slot ?? ""));
+    }
+    return { byDay, dayKeys, unscheduledByStage };
   }, [matches]);
 
   const visible = (m: Match): boolean => {
@@ -48,6 +77,10 @@ export default function ScoringClient({ matches, teams, myTeamIds, pointsByMatch
       (m.away_team_id != null && myTeamSet.has(m.away_team_id))
     );
   };
+
+  const unscheduledStages = Array.from(unscheduledByStage.keys()).sort(
+    (a, b) => STAGE_RANK[a] - STAGE_RANK[b],
+  );
 
   return (
     <div>
@@ -69,13 +102,13 @@ export default function ScoringClient({ matches, teams, myTeamIds, pointsByMatch
         </label>
       </div>
 
-      {STAGE_ORDER.map((stage) => {
-        const rows = grouped.get(stage)!.filter(visible);
+      {dayKeys.map((k) => {
+        const rows = byDay.get(k)!.filter(visible);
         if (rows.length === 0) return null;
         return (
-          <section key={stage} className="mb-6">
+          <section key={k} className="mb-6">
             <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-500">
-              {STAGE_LABEL[stage]}
+              {formatDayLabel(k)}
             </h2>
             <ul className="space-y-1">
               {rows.map((m) => (
@@ -91,6 +124,36 @@ export default function ScoringClient({ matches, teams, myTeamIds, pointsByMatch
           </section>
         );
       })}
+
+      {unscheduledStages.length > 0 && (
+        <section className="mt-8 border-t border-dashed border-neutral-300 pt-4">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+            Unscheduled (date TBD)
+          </h2>
+          {unscheduledStages.map((stage) => {
+            const rows = unscheduledByStage.get(stage)!.filter(visible);
+            if (rows.length === 0) return null;
+            return (
+              <div key={stage} className="mb-4">
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-500">
+                  {STAGE_LABEL[stage]}
+                </h3>
+                <ul className="space-y-1">
+                  {rows.map((m) => (
+                    <MatchRow
+                      key={m.id}
+                      match={m}
+                      teamById={teamById}
+                      myTeamSet={myTeamSet}
+                      myPoints={pointsByMatch[m.id] ?? 0}
+                    />
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </section>
+      )}
     </div>
   );
 }
@@ -123,8 +186,9 @@ function MatchRow({
       <div className="flex items-center justify-between gap-3 text-sm">
         <div className="min-w-0 flex-1">
           <div className="text-xs text-neutral-500">
-            {match.kickoff ? new Date(match.kickoff).toLocaleString() : match.slot ?? "TBD"}
+            {match.kickoff ? formatTime(match.kickoff) : match.slot ?? "TBD"}
             {match.group_letter ? ` · Group ${match.group_letter}` : ""}
+            {match.stage !== "group" && ` · ${STAGE_LABEL[match.stage]}`}
             {match.venue ? ` · ${match.venue}` : ""}
           </div>
           <div className="mt-0.5 flex items-center justify-between gap-2">
