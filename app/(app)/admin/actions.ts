@@ -64,8 +64,27 @@ export interface AddPlayerResult {
 }
 
 export async function addPlayers(rows: AddPlayerInput[]): Promise<AddPlayerResult[]> {
-  await requireAdmin();
-  const admin = createAdminClient();
+  try {
+    await requireAdmin();
+  } catch (e) {
+    return rows.map((r) => ({
+      phone: r.phone,
+      name: r.full_name,
+      status: `forbidden: ${e instanceof Error ? e.message : "not admin"}`,
+    }));
+  }
+
+  let admin;
+  try {
+    admin = createAdminClient();
+  } catch (e) {
+    return rows.map((r) => ({
+      phone: r.phone,
+      name: r.full_name,
+      status: `config error: ${e instanceof Error ? e.message : "no admin client"}`,
+    }));
+  }
+
   const out: AddPlayerResult[] = [];
 
   for (const row of rows) {
