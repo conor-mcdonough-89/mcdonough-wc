@@ -66,3 +66,17 @@ export interface PoolSettings {
   invite_code: string | null;
   final_bonus: number;
 }
+
+export interface League {
+  id: string;
+  name: string;
+  invite_code: string;
+  created_by: string | null;
+  created_at: string;
+}
+
+export interface LeagueMember {
+  league_id: string;
+  profile_id: string;
+  joined_at: string;
+}

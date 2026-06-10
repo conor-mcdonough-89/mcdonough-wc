@@ -7,7 +7,7 @@ import {
   advancementMapFromRows,
   type EntryScore,
 } from "@/lib/scoring";
-import LeaderboardClient, { type LeaderboardRow } from "./client";
+import LeaderboardClient, { type LeaderboardRow, type LeagueScope } from "./client";
 
 export const dynamic = "force-dynamic";
 
@@ -60,5 +60,44 @@ export default async function LeaderboardPage() {
   rows.sort((a, b) => compareEntryScores(a.score, b.score));
 
   const locked = settings?.status === "locked";
-  return <LeaderboardClient rows={rows} teams={teamList} currentUserId={user.id} locked={locked} />;
+
+  // Leagues the user is a member of, with the full member list for each so the
+  // client can filter rows without further round-trips. RLS lets the user see
+  // all members of leagues they belong to.
+  const { data: myMemberships } = await supabase
+    .from("league_members")
+    .select("league_id, leagues(id, name)")
+    .eq("profile_id", user.id);
+
+  const myLeagueIds = ((myMemberships as { league_id: string }[] | null) ?? []).map((m) => m.league_id);
+
+  let leagueScopes: LeagueScope[] = [];
+  if (myLeagueIds.length > 0) {
+    const { data: allMembers } = await supabase
+      .from("league_members")
+      .select("league_id, profile_id")
+      .in("league_id", myLeagueIds);
+    const membersByLeague = new Map<string, string[]>();
+    for (const m of (allMembers as { league_id: string; profile_id: string }[] | null) ?? []) {
+      if (!membersByLeague.has(m.league_id)) membersByLeague.set(m.league_id, []);
+      membersByLeague.get(m.league_id)!.push(m.profile_id);
+    }
+    leagueScopes = ((myMemberships as { league_id: string; leagues: { id: string; name: string } | null }[] | null) ?? [])
+      .filter((m) => m.leagues)
+      .map((m) => ({
+        id: m.leagues!.id,
+        name: m.leagues!.name,
+        member_ids: membersByLeague.get(m.league_id) ?? [],
+      }));
+  }
+
+  return (
+    <LeaderboardClient
+      rows={rows}
+      teams={teamList}
+      currentUserId={user.id}
+      locked={locked}
+      leagues={leagueScopes}
+    />
+  );
 }

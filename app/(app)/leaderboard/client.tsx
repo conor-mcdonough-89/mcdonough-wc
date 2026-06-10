@@ -12,16 +12,32 @@ export interface LeaderboardRow {
   score: EntryScore;
 }
 
+export interface LeagueScope {
+  id: string;
+  name: string;
+  member_ids: string[];
+}
+
 interface Props {
   rows: LeaderboardRow[];
   teams: Team[];
   currentUserId: string;
   locked: boolean;
+  leagues: LeagueScope[];
 }
 
-export default function LeaderboardClient({ rows, teams, currentUserId, locked }: Props) {
+export default function LeaderboardClient({ rows, teams, currentUserId, locked, leagues }: Props) {
   const teamById = useMemo(() => new Map(teams.map((t) => [t.id, t])), [teams]);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [scope, setScope] = useState<string>("overall");
+
+  const filteredRows = useMemo(() => {
+    if (scope === "overall") return rows;
+    const league = leagues.find((l) => l.id === scope);
+    if (!league) return rows;
+    const memberSet = new Set(league.member_ids);
+    return rows.filter((r) => memberSet.has(r.profile_id));
+  }, [rows, leagues, scope]);
 
   function toggle(id: string) {
     setExpanded((prev) => {
@@ -32,28 +48,41 @@ export default function LeaderboardClient({ rows, teams, currentUserId, locked }
     });
   }
 
-  if (rows.length === 0) {
-    return (
-      <div>
-        <h1 className="text-2xl font-semibold">Leaderboard</h1>
-        <p className="mt-4 text-sm text-neutral-600">No entries yet.</p>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Leaderboard</h1>
-      <p className="mt-1 text-sm text-neutral-600">
-        Ties broken by group-stage points → teams advanced → total goals.
-      </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold">Leaderboard</h1>
+          <p className="mt-1 text-sm text-neutral-600">
+            Ties broken by group-stage points → teams advanced → total goals.
+          </p>
+        </div>
+        {leagues.length > 0 && (
+          <label className="flex items-center gap-2 text-sm">
+            <span className="text-neutral-600">Scope</span>
+            <select
+              value={scope}
+              onChange={(e) => setScope(e.target.value)}
+              className="rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm"
+            >
+              <option value="overall">Overall</option>
+              {leagues.map((l) => (
+                <option key={l.id} value={l.id}>{l.name}</option>
+              ))}
+            </select>
+          </label>
+        )}
+      </div>
       {!locked && (
         <p className="mt-2 rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
           Pool is still in draft — other players&rsquo; rosters are hidden until the commissioner locks the pool.
         </p>
       )}
+      {filteredRows.length === 0 ? (
+        <p className="mt-4 text-sm text-neutral-600">No entries in this scope yet.</p>
+      ) : (
       <ul className="mt-4 space-y-2">
-        {rows.map((row, i) => {
+        {filteredRows.map((row, i) => {
           const isMe = row.profile_id === currentUserId;
           const isOpen = expanded.has(row.entry_id);
           return (
@@ -135,6 +164,7 @@ export default function LeaderboardClient({ rows, teams, currentUserId, locked }
           );
         })}
       </ul>
+      )}
     </div>
   );
 }
