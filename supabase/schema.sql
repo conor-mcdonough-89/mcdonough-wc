@@ -278,6 +278,31 @@ language sql stable security definer set search_path = public as $$
   select id from public.leagues where invite_code = p_code;
 $$;
 
+create or replace function public.join_league(p_code text)
+returns table (id uuid, name text)
+language plpgsql security definer set search_path = public as $$
+declare
+  v_user uuid := auth.uid();
+  v_league_id uuid;
+  v_league_name text;
+begin
+  if v_user is null then raise exception 'Not authenticated'; end if;
+  if coalesce(trim(p_code), '') = '' then raise exception 'Code required'; end if;
+
+  select l.id, l.name into v_league_id, v_league_name
+  from public.leagues l where l.invite_code = upper(trim(p_code));
+
+  if v_league_id is null then return; end if;
+
+  insert into public.league_members (league_id, profile_id)
+  values (v_league_id, v_user)
+  on conflict (league_id, profile_id) do nothing;
+
+  id := v_league_id;
+  name := v_league_name;
+  return next;
+end $$;
+
 create or replace function public.create_league(p_name text, p_code text)
 returns uuid
 language plpgsql security definer set search_path = public as $$

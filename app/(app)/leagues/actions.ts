@@ -63,30 +63,16 @@ export async function joinLeague(
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Not signed in." };
 
-  const { data: leagueId, error: lookupErr } = await supabase.rpc("lookup_league_by_code", {
-    p_code: normalized,
-  });
-  if (lookupErr) return { ok: false, error: lookupErr.message };
-  if (!leagueId) return { ok: false, error: "No league found for that code." };
+  const { data, error } = await supabase.rpc("join_league", { p_code: normalized });
+  if (error) return { ok: false, error: error.message };
 
-  const { error: memErr } = await supabase
-    .from("league_members")
-    .upsert(
-      { league_id: leagueId as unknown as string, profile_id: user.id },
-      { onConflict: "league_id,profile_id" },
-    );
-  if (memErr) return { ok: false, error: memErr.message };
-
-  // Pull the name now that we're a member (RLS allows it).
-  const { data: league } = await supabase
-    .from("leagues")
-    .select("id, name")
-    .eq("id", leagueId as unknown as string)
-    .single();
+  // RPC returns SETOF (id, name) — supabase-js gives us an array.
+  const row = Array.isArray(data) ? data[0] : data;
+  if (!row?.id) return { ok: false, error: "No league found for that code." };
 
   revalidatePath("/draft");
   revalidatePath("/leaderboard");
-  return { ok: true, league: { id: league?.id ?? (leagueId as unknown as string), name: league?.name ?? "" } };
+  return { ok: true, league: { id: row.id as string, name: (row.name as string) ?? "" } };
 }
 
 export async function leaveLeague(id: string): Promise<{ ok: boolean; error?: string }> {
