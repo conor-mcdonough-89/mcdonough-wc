@@ -26,14 +26,14 @@ export default function RulesPage() {
       <Section title="2. Prices">
         <table className="tier-table">
           <thead>
-            <tr><th>Tier</th><th>Price</th><th>Who</th></tr>
+            <tr><th>Tier</th><th>Price</th><th>Teams</th></tr>
           </thead>
           <tbody>
-            <tr><td>S</td><td>43</td><td>The four favourites — France, Spain, Argentina, England</td></tr>
-            <tr><td>A</td><td>29</td><td>Title contenders — Portugal, Brazil, Netherlands, Morocco, Belgium, Germany, Croatia, Colombia</td></tr>
-            <tr><td>B</td><td>17</td><td>Strong sides — Senegal, Mexico, USA, Uruguay, Japan, Switzerland, Iran, Austria, Ecuador, South Korea, Australia, Egypt</td></tr>
-            <tr><td>C</td><td>9</td><td>Mid-pack — Canada, Ivory Coast, Qatar, Algeria, Sweden, Tunisia, Czechia, Türkiye, Norway, Scotland, DR Congo, Bosnia &amp; Herzegovina</td></tr>
-            <tr><td>D</td><td>4</td><td>The dozen cheapest — high variance, low cost</td></tr>
+            <tr><td>S</td><td>43</td><td>Spain · France · England</td></tr>
+            <tr><td>A</td><td>29</td><td>Portugal · Brazil · Argentina · Germany · Netherlands · Belgium</td></tr>
+            <tr><td>B</td><td>17</td><td>Norway · Colombia · Japan · Morocco · Mexico · USA · Uruguay · Croatia · Switzerland · Türkiye · Ecuador · Austria</td></tr>
+            <tr><td>C</td><td>9</td><td>Ivory Coast · Sweden · Canada · Senegal · Scotland · Paraguay · Algeria · Egypt · Czechia · Ghana · Bosnia &amp; Herzegovina · South Korea</td></tr>
+            <tr><td>D</td><td>4</td><td>Iran · Tunisia · Australia · DR Congo · Cape Verde · Uzbekistan · Panama · Haiti · Curaçao · Iraq · Jordan · Qatar · Saudi Arabia · New Zealand · South Africa</td></tr>
           </tbody>
         </table>
       </Section>
