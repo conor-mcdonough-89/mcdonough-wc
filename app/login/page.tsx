@@ -75,8 +75,14 @@ export default function LoginPage() {
         >
           {submitting ? "Signing in…" : "Sign in"}
         </button>
+        <p className="text-center text-sm text-neutral-600">
+          New player?{" "}
+          <a href="/signup" className="font-medium text-pitch-700 hover:underline">
+            Create an account
+          </a>
+        </p>
         <p className="text-center text-xs text-neutral-500">
-          Accounts are pre-created by the commissioner. Lost your password? Text Conor.
+          Lost your password? Text Conor.
         </p>
       </form>
     </main>
