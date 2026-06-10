@@ -29,7 +29,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="McDonough crest" className="h-6 w-6 object-contain" />
             <span className="hidden sm:inline">McDonough World Cup Pool</span>
-            <span className="sm:hidden">McD WC Pool</span>
           </Link>
           <nav className="flex items-center gap-1 text-sm">
             <NavLink href="/draft">Draft</NavLink>
