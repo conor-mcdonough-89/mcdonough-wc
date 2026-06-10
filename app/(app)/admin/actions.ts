@@ -4,8 +4,8 @@ import { randomBytes } from "node:crypto";
 import { createClient as createServer } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { normalizePhone, identifierForPhone, isValidE164 } from "@/lib/phone";
-import { computeAdvancement, advancementMapFromRows } from "@/lib/scoring";
-import type { Match, Team, TeamAdvancement, AdvancementResult, PoolStatus, Stage } from "@/lib/types";
+import { computeAdvancement } from "@/lib/scoring";
+import type { Match, Team, TeamAdvancement, AdvancementResult, PoolStatus } from "@/lib/types";
 
 async function requireAdmin() {
   const supabase = await createServer();
@@ -257,7 +257,3 @@ export async function fetchAdvancementSnapshot(): Promise<{
     suggested: Object.fromEntries(suggested),
   };
 }
-
-// Stage helper for the match editor
-export const STAGES: Stage[] = ["group", "R32", "R16", "QF", "SF", "3P", "F"];
-export const _advMapFromRows = advancementMapFromRows;
