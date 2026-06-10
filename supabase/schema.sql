@@ -278,6 +278,27 @@ language sql stable security definer set search_path = public as $$
   select id from public.leagues where invite_code = p_code;
 $$;
 
+create or replace function public.create_league(p_name text, p_code text)
+returns uuid
+language plpgsql security definer set search_path = public as $$
+declare
+  v_user uuid := auth.uid();
+  v_id uuid;
+begin
+  if v_user is null then raise exception 'Not authenticated'; end if;
+  if coalesce(trim(p_name), '') = '' then raise exception 'Name required'; end if;
+  if coalesce(trim(p_code), '') = '' then raise exception 'Code required'; end if;
+
+  insert into public.leagues (name, invite_code, created_by)
+  values (trim(p_name), upper(trim(p_code)), v_user)
+  returning id into v_id;
+
+  insert into public.league_members (league_id, profile_id)
+  values (v_id, v_user);
+
+  return v_id;
+end $$;
+
 -- ===== RLS =====
 alter table public.leagues enable row level security;
 alter table public.league_members enable row level security;

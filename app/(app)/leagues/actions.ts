@@ -24,23 +24,27 @@ export async function createLeague(
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Not signed in." };
 
-  // Try a handful of codes on the off-chance of a collision.
+  // Atomic create + first-member insert via SECURITY DEFINER function. Retry
+  // on the off-chance of a unique-code collision.
   for (let attempt = 0; attempt < 5; attempt++) {
     const code = generateCode();
-    const { data, error } = await supabase
-      .from("leagues")
-      .insert({ name: trimmed, invite_code: code, created_by: user.id })
-      .select("*")
-      .single();
-    if (!error && data) {
-      // Add the creator as the first member.
-      const { error: memErr } = await supabase
-        .from("league_members")
-        .insert({ league_id: data.id, profile_id: user.id });
-      if (memErr) return { ok: false, error: memErr.message };
+    const { data: leagueId, error } = await supabase.rpc("create_league", {
+      p_name: trimmed,
+      p_code: code,
+    });
+    if (!error && leagueId) {
       revalidatePath("/draft");
       revalidatePath("/leaderboard");
-      return { ok: true, league: data as League };
+      return {
+        ok: true,
+        league: {
+          id: leagueId as unknown as string,
+          name: trimmed,
+          invite_code: code,
+          created_by: user.id,
+          created_at: new Date().toISOString(),
+        },
+      };
     }
     if (error && !/duplicate|unique/i.test(error.message)) {
       return { ok: false, error: error.message };
