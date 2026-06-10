@@ -16,9 +16,10 @@ interface Props {
   rows: LeaderboardRow[];
   teams: Team[];
   currentUserId: string;
+  locked: boolean;
 }
 
-export default function LeaderboardClient({ rows, teams, currentUserId }: Props) {
+export default function LeaderboardClient({ rows, teams, currentUserId, locked }: Props) {
   const teamById = useMemo(() => new Map(teams.map((t) => [t.id, t])), [teams]);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
@@ -46,6 +47,11 @@ export default function LeaderboardClient({ rows, teams, currentUserId }: Props)
       <p className="mt-1 text-sm text-neutral-600">
         Ties broken by group-stage points → teams advanced → total goals.
       </p>
+      {!locked && (
+        <p className="mt-2 rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          Pool is still in draft — other players&rsquo; rosters are hidden until the commissioner locks the pool.
+        </p>
+      )}
       <ul className="mt-4 space-y-2">
         {rows.map((row, i) => {
           const isMe = row.profile_id === currentUserId;
@@ -86,6 +92,12 @@ export default function LeaderboardClient({ rows, teams, currentUserId }: Props)
               </button>
               {isOpen && (
                 <div className="border-t border-neutral-100 bg-neutral-50 px-4 py-3">
+                  {!locked && !isMe ? (
+                    <p className="text-sm text-neutral-500">
+                      Picks hidden until the pool locks.
+                    </p>
+                  ) : (
+                  <>
                   <div className="mb-2 grid grid-cols-3 gap-2 text-xs text-neutral-600">
                     <div>Group <strong className="text-neutral-900">{row.score.group_points}</strong></div>
                     <div>Knockout <strong className="text-neutral-900">{row.score.knockout_points}</strong></div>
@@ -115,6 +127,8 @@ export default function LeaderboardClient({ rows, teams, currentUserId }: Props)
                       );
                     })}
                   </ul>
+                  </>
+                  )}
                 </div>
               )}
             </li>

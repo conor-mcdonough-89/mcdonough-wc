@@ -177,9 +177,17 @@ drop policy if exists entries_admin_all on public.entries;
 create policy entries_admin_all on public.entries for all to authenticated
   using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
 
--- Entry picks: readable by all; only mutable by the entry owner during draft.
+-- Entry picks: readable by all once the pool locks; until then only the
+-- owner can see their own picks. Mutations are owner-only during draft.
 drop policy if exists entry_picks_select on public.entry_picks;
-create policy entry_picks_select on public.entry_picks for select to authenticated using (true);
+create policy entry_picks_select on public.entry_picks for select to authenticated
+  using (
+    not public.pool_is_draft()
+    or exists (
+      select 1 from public.entries e
+      where e.id = entry_picks.entry_id and e.profile_id = auth.uid()
+    )
+  );
 
 drop policy if exists entry_picks_insert_self on public.entry_picks;
 create policy entry_picks_insert_self on public.entry_picks for insert to authenticated

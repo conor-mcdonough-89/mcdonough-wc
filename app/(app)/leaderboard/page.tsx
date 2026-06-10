@@ -26,7 +26,7 @@ export default async function LeaderboardPage() {
   ] = await Promise.all([
     supabase.from("matches").select("*"),
     supabase.from("teams").select("*"),
-    supabase.from("pool_settings").select("final_bonus").single(),
+    supabase.from("pool_settings").select("final_bonus, status").single(),
     supabase.from("team_advancement").select("*"),
     supabase.from("entries").select("id, profile_id, entry_picks(team_id)"),
     supabase.from("profiles").select("id, entry_name, full_name"),
@@ -59,5 +59,6 @@ export default async function LeaderboardPage() {
 
   rows.sort((a, b) => compareEntryScores(a.score, b.score));
 
-  return <LeaderboardClient rows={rows} teams={teamList} currentUserId={user.id} />;
+  const locked = settings?.status === "locked";
+  return <LeaderboardClient rows={rows} teams={teamList} currentUserId={user.id} locked={locked} />;
 }
