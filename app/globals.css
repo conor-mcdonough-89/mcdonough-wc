@@ -9,3 +9,12 @@
 html, body {
   @apply bg-neutral-50 text-neutral-900;
 }
+
+@layer components {
+  .btn-primary {
+    @apply rounded-md bg-pitch-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-pitch-700 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-50 disabled:opacity-50;
+  }
+}
