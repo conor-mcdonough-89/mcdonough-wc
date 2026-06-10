@@ -24,13 +24,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen">
       <header className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+        <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
+          <Link href="/" className="flex shrink-0 items-center gap-2 font-semibold">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="McDonough crest" className="h-6 w-6 object-contain" />
+            <img src="/logo.png" alt="McDonough crest" className="h-7 w-7 object-contain" />
             <span className="hidden sm:inline">McDonough World Cup Pool</span>
           </Link>
-          <nav className="flex items-center gap-1 text-sm">
+          <nav className="ml-auto flex min-w-0 items-center gap-1 overflow-x-auto text-sm">
             <NavLink href="/draft">Draft</NavLink>
             <NavLink href="/scoring">Scoring</NavLink>
             <NavLink href="/leaderboard">Leaderboard</NavLink>
@@ -49,7 +49,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   return (
     <Link
       href={href}
-      className="rounded-md px-3 py-1.5 text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+      className="shrink-0 rounded-md px-2 py-1.5 text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 sm:px-3"
     >
       {children}
     </Link>
